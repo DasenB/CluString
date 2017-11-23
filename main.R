@@ -21,7 +21,7 @@ Cluster <- setClass(
 )
 
 setGeneric(name="getWords",
-           def=function(self,position)
+           def=function(self)
            {
              standardGeneric("getWords")
            }
@@ -29,7 +29,7 @@ setGeneric(name="getWords",
 
 setMethod(f="getWords",
           signature="Cluster",
-          definition=function(self,position)
+          definition=function(self)
           {
             wordList <- self@strings
             
