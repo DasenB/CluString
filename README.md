@@ -6,7 +6,7 @@ Clustering words based on substrings.
 
 ```r
 words <- c("word1", "word2")
-cluster <- c("word1", "word2", c("word3", "word4"), c("word5", c("word6")) )
+cluster <- Cluster( strings=words, children=c(), silblings=c() )
 ```
 
 # 1. Wortschatz
