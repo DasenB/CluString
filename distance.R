@@ -16,12 +16,6 @@ longestcommonsubstring <- function(stringA, stringB) {
 }
 
 # 5. Jaro–Winkler distance
-longestcommonsubstring <- function(stringA, stringB) {
+jarowinkler <- function(stringA, stringB) {
   return (stringdist(stringA,stringB, method="jw"))
 }
-
-
-
-
-
-dameraulevenshtein("haasdflo", "halo")
