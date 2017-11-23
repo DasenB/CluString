@@ -3,11 +3,6 @@ levenshtein <- function(stringA, stringB) {
   return (stringdist(stringA,stringB, method="lv"))
 }
 
-# 2. Damerau–Levenshtein distance
-dameraulevenshtein <- function(stringA, stringB) {
-  return (stringdist(stringA,stringB, method="dl"))
-}
-
 # 3. Sørensen–Dice coefficient
 #todo
 # 4. Longest common substring
@@ -18,4 +13,9 @@ longestcommonsubstring <- function(stringA, stringB) {
 # 5. Jaro–Winkler distance
 jarowinkler <- function(stringA, stringB) {
   return (stringdist(stringA,stringB, method="jw"))
+}
+
+# 2. Damerau–Levenshtein distance
+dameraulevenshtein <- function(stringA, stringB) {
+  return (stringdist(stringA,stringB, method="dl"))
 }
