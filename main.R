@@ -40,10 +40,9 @@ setMethod(f="getWords",
           }
 )
 
-a <- Cluster(strings = c("a", "b") )
-b <- Cluster(strings = c("c", "d") )
-
-c <- Cluster(strings = c("e"), children = c(a, b))
-
-getWords(c)
-
+# a <- Cluster(strings = c("a", "b") )
+# b <- Cluster(strings = c("c", "d") )
+# 
+# c <- Cluster(strings = c("e"), children = c(a, b))
+# 
+# getWords(c)
