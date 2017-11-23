@@ -26,7 +26,7 @@ wortschatz <- function(language, size) { words }
 stringDistance <- function(stringA, stringB) { return [0.0, 1.0]}
 ```
 
-# 3) Clustering
+# 3. Clustering
   1. Lloyd-Algorithmus (k-Means)
   2. MacQueen’s Algorithmus (k-Means)
   3. SingleLink (Hierarchisch)
@@ -37,7 +37,7 @@ stringDistance <- function(stringA, stringB) { return [0.0, 1.0]}
 analyseCluster <- function(kMeans, words) { return cluster }
 ```
 
-# 4) Display
+# 4. Display
   1. Dendogram
   2. ?
 
