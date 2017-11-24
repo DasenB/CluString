@@ -6,13 +6,13 @@ Clustering words based on substrings.
 
 ```r
 words <- c("word1", "word2")
-cluster <- Cluster( strings=words, children=c(), silblings=c() )
+cluster <- Cluster(strings=words, children=c(), silblings=c())
 ```
 
 # 1. Wortschatz
 
 ```r
-wortschatz <- function(language, size) { words }
+wortschatz <- function(language, size) { return(words) }
 ```
 # 2. Abstandsmaß
 
@@ -23,7 +23,7 @@ wortschatz <- function(language, size) { words }
   5. Jaro–Winkler distance
 
 ```r
-stringDistance <- function(stringA, stringB) { return [0.0, 1.0]}
+stringDistance <- function(stringA, stringB) { return( [0.0, 1.0] )}
 ```
 
 # 3. Clustering
@@ -34,7 +34,7 @@ stringDistance <- function(stringA, stringB) { return [0.0, 1.0]}
   5. Divisive Analysis Clustering (Hierarchisch)
 
 ```r
-analyseCluster <- function(kMeans, words) { return cluster }
+analyseCluster <- function(kMeans, words) { return( cluster ) }
 ```
 
 # 4. Display
