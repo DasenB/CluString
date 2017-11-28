@@ -34,7 +34,7 @@ stringDistance <- function(stringA, stringB) { return [0.0, 1.0]}
   5. Divisive Analysis Clustering (Hierarchisch)
 
 ```r
-analyseCluster <- function(kMeans, words) { return cluster }
+analyseCluster <- function(words, kMeans) { return cluster }
 ```
 
 # 4) Display
