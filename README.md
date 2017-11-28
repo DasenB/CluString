@@ -6,13 +6,13 @@ Clustering words based on substrings.
 
 ```r
 words <- c("word1", "word2")
-cluster <- Cluster( strings=words, children=c(), silblings=c() )
+cluster <- Cluster(strings=words, children=c(), silblings=c())
 ```
 
 # 1. Wortschatz
 
 ```r
-wortschatz <- function(language, size) { words }
+wortschatz <- function(language, size) { return(words) }
 ```
 # 2. Abstandsmaß
 
@@ -23,10 +23,10 @@ wortschatz <- function(language, size) { words }
   5. Jaro–Winkler distance
 
 ```r
-stringDistance <- function(stringA, stringB) { return [0.0, 1.0]}
+stringDistance <- function(stringA, stringB) { return( [0.0, 1.0] )}
 ```
 
-# 3) Clustering
+# 3. Clustering
   1. Lloyd-Algorithmus (k-Means)
   2. MacQueen’s Algorithmus (k-Means)
   3. SingleLink (Hierarchisch)
@@ -37,7 +37,7 @@ stringDistance <- function(stringA, stringB) { return [0.0, 1.0]}
 analyseCluster <- function(words, kMeans) { return cluster }
 ```
 
-# 4) Display
+# 4. Display
   1. Dendogram
   2. ?
 
