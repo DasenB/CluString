@@ -1,4 +1,3 @@
-rm(list = ls(.GlobalEnv), envir = .GlobalEnv)
 
 # Structure
 Cluster <- setClass(
@@ -9,7 +8,7 @@ Cluster <- setClass(
     children   = "list",
     silblings = "list",
     center = "character",
-    variance = "double"
+    variance = "numeric"
   ),
   
   prototype=list(
@@ -36,7 +35,7 @@ Cluster <- setClass(
 
 # get all words of a cluster
 setGeneric(name="getWords",
-           def=function(self)
+           def=function(cluster)
            {
              standardGeneric("getWords")
            }
@@ -44,18 +43,68 @@ setGeneric(name="getWords",
 
 setMethod(f="getWords",
           signature="Cluster",
-          definition=function(self)
+          definition=function(cluster)
           {
-            wordList <- self@strings
-            
-            for (x in self@children) {
+            wordList <- cluster@strings
+            for (x in cluster@children) {
               wordList = c(wordList, getWords(x) )
             }
             return(wordList)
           }
 )
 
-# 
+# add a word to a cluster
+setGeneric(name="addWord",
+           def=function(cluster, word)
+           {
+             standardGeneric("addWord")
+           }
+)
+
+setMethod(f="addWord",
+          signature="Cluster",
+          definition=function(cluster, word)
+          {
+            cluster@strings = c(cluster@strings, word)
+            return(cluster)
+          }
+)
+
+# add a subcluster to a cluster
+setGeneric(name="addSubcluster",
+           def=function(cluster, subcluster)
+           {
+             standardGeneric("addSubcluster")
+           }
+)
+
+setMethod(f="addSubcluster",
+          signature="Cluster",
+          definition=function(cluster, subcluster)
+          {
+            cluster@children = c(cluster@children, subcluster)
+            return(cluster)
+          }
+)
+
+# find the center
+setGeneric(name="findCenter",
+           def=function(cluster)
+           {
+             standardGeneric("findCenter")
+           }
+)
+
+setMethod(f="findCenter",
+          signature="Cluster",
+          definition=function(cluster)
+          {
+            words <- getWords(cluster)
+            
+            return(cluster)
+          }
+)
+
 
 # a <- Cluster(strings = c("a", "b") )
 # b <- Cluster(strings = c("c", "d") )
