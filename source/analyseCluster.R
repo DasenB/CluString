@@ -1,4 +1,3 @@
-rm(list = ls(.GlobalEnv), envir = .GlobalEnv)
 
 setwd("source")
 source("Cluster.R")
@@ -18,8 +17,6 @@ Lloyd <- function(words, k, abstand){
     newCluster <- Cluster()
     clusters <- c(clusters, newCluster)
   }
-  View(clusters)
-  
   
   
   # kmeans(selectedData(), 2)

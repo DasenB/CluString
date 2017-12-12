@@ -18,7 +18,8 @@ words <- wortschatz(100)
 distance <- c()
 
 for (word in words) {
-  levenshtein(word, "Telemetrie")
+  distance <- c(distance, dist.levenshtein(word, "Telemetrie"))
 }
 
 print("done")
+View(distance)

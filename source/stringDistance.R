@@ -8,8 +8,12 @@ dist.levenshtein <- function(stringA, stringB) {
 
 # 3. Sørensen–Dice coefficient
 dist.sorendice <- function(stringA, stringB) {
-  # todo
-  return(0.0)
+  x <- unique( substring(stringA, seq(1,nchar(stringA),1), seq(1,nchar(stringA),1)) )
+  y <- unique( substring(stringB, seq(1,nchar(stringB),1), seq(1,nchar(stringB),1)) )
+  wordlaengen <- length(stringA) + length(stringB)
+  schnittmenge <- 2*length(union(x, y))
+  similarity <- schnittmenge/wordlaengen
+  return(similarity)
 }
 
 # 4. Longest common substring
@@ -25,4 +29,11 @@ dist.jarowinkler <- function(stringA, stringB) {
 # 2. Damerau–Levenshtein distance
 dist.dameraulevenshtein <- function(stringA, stringB) {
   return(stringdist(stringA,stringB, method="dl"))
+}
+
+dist.ngramme <- function(stringA, stringB) {
+  if(!exists("nGramLenght")){
+    nGramLenght <- 2
+  }
+  return(stringdist(stringA,stringB, method="qgram", q=nGramLenght))
 }
