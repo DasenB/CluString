@@ -54,7 +54,7 @@ Die Abstandsmaße werden vor dem Clustern berechnet, um wiederholte Berechnung v
 
 # II. Lookuptable
 
-Um einen Datensatz nicht mehrfach preprocessen zu müssen, lassen sich die Daten in abspeichern und laden.
+Um einen Datensatz nicht mehrfach preprocessen zu müssen, lassen sich die Daten abspeichern und laden.
 
 ```r
 loadLookuptable <- function(file) { return( data.frame ) }
