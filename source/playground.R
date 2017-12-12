@@ -1,6 +1,4 @@
-rm(list = ls(.GlobalEnv), envir = .GlobalEnv)
 
-source("Cluster.R")
 source("stringDistance.R")
 source("wortschatz.R")
 
