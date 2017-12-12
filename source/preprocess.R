@@ -4,47 +4,45 @@ setwd("source")
 source("stringDistance.R")
 source("wortschatz.R")
 
-
-preprocess <- function(words) {  
-  wordA <- c()
-  wordB <- c()
-  levenshtein <- c()
-  sorendice <- c()
-  longestcommonsubstring <- c()
-  jarowinkler <- c()
-  dameraulevenshtein <- c()
-  zweiGramme <- c()
-  dreiGramme <- c()
-  vierGramme <- c()
+preprocess <- function(words) {
+  print("preprocess apply: ")
+  wordlist <- expand.grid(words, words)
+  print("   - finished expand.grid ...")
   
-  testWord <- "Landzuteilungen"
+  wordlist$levenshtein <- apply(wordlist,1,function(row) dist.levenshtein(row[1], row[2]))
+  print("   - finished levenshtein")
   
-  for (word in words) {
-    wordA <- append(wordA, testWord)
-    wordB <- append(wordB, word)
-    levenshtein <- append(levenshtein, dist.levenshtein(word, testWord))
-    sorendice <- append(sorendice, dist.sorendice(word, testWord))
-    longestcommonsubstring <- append(longestcommonsubstring, dist.longestcommonsubstring(word, testWord))
-    jarowinkler <- append(jarowinkler, dist.jarowinkler(word, testWord))
-    dameraulevenshtein <- append(dameraulevenshtein, dist.dameraulevenshtein(word, testWord))
-    nGramLenght <- 2
-    zweiGramme <- append(zweiGramme, dist.ngramme(word, testWord))
-    nGramLenght <- 3
-    dreiGramme <- append(dreiGramme, dist.ngramme(word, testWord))
-    nGramLenght <- 4
-    vierGramme <- append(vierGramme, dist.ngramme(word, testWord))
-  }
+  wordlist$sorendice <- apply(wordlist,1,function(row) dist.sorendice(row[1], row[2]))
+  print("   - finished sorendice")
   
-  lookuptable <- data.frame(wordA = wordA, wordB = wordB, levenshtein = levenshtein, sorendice = sorendice, longestcommonsubstring = longestcommonsubstring, jarowinkler = jarowinkler, dameraulevenshtein = dameraulevenshtein, zweiGramme=zweiGramme, dreiGramme=dreiGramme, vierGramme=vierGramme)
-
-  return(lookuptable)  
+  wordlist$longestcommonsubstring <- apply(wordlist,1,function(row) dist.longestcommonsubstring(row[1], row[2]))
+  print("   - finished longestcommonsubstring")
+  
+  wordlist$jarowinkler <- apply(wordlist,1,function(row) dist.jarowinkler(row[1], row[2]))
+  print("   - finished jarowinkler")
+  
+  wordlist$dameraulevenshtein <- apply(wordlist,1,function(row) dist.dameraulevenshtein(row[1], row[2]))
+  print("   - finished dameraulevenshtein")
+  
+  nGramLenght <- 2
+  wordlist$zweiGramme <- apply(wordlist,1,function(row) dist.ngramme(row[1], row[2]))
+  print("   - finished zweiGramme")
+  
+  nGramLenght <- 3
+  wordlist$dreiGramme <- apply(wordlist,1,function(row) dist.ngramme(row[1], row[2]))
+  print("   - finished dreiGramme")
+  
+  nGramLenght <- 4
+  wordlist$vierGramme <- apply(wordlist,1,function(row) dist.ngramme(row[1], row[2]))
+  print("   - finished vierGramme")
+  
+  print("Done")
+  
+  return(wordlist)
 }
 
-system.time( wordList <- wortschatz(1000) )
-system.time( lookuptable <- preprocess(wordList) )
+words <- wortschatz(1000)
 
-m <- expand.grid(wordList, wordList)
+system.time(lookuptable <- preprocess(words))
 
-View(m)
-
-View(lookuptable)
+write.table(lookuptable, "../preprocessed/lookuptable.csv")

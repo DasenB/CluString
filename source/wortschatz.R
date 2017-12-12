@@ -8,3 +8,6 @@ wortschatz <- function(size) {
   return(words)
 }
 
+loadLookuptable <- function() {
+  read.csv2("../preprocessed/lookuptable.csv")
+}

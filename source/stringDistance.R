@@ -31,6 +31,7 @@ dist.dameraulevenshtein <- function(stringA, stringB) {
   return(stringdist(stringA,stringB, method="dl"))
 }
 
+# N-Gramme
 dist.ngramme <- function(stringA, stringB) {
   if(!exists("nGramLenght")){
     nGramLenght <- 2
