@@ -7,7 +7,3 @@ wortschatz <- function(size) {
   words <- sample(allWords$V2, size, replace = F)
   return(words)
 }
-
-loadLookuptable <- function() {
-  read.csv2("../preprocessed/lookuptable.csv")
-}

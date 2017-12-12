@@ -1,5 +1,5 @@
 # Textmining
-Clustering words based on substrings.
+Clustern von Strings auf Basis von Substrings.
 
 
 # 0. Datenstrukturen
@@ -12,7 +12,7 @@ cluster <- Cluster(strings=words, children=c(), silblings=c())
 # 1. Wortschatz
 
 ```r
-wortschatz <- function(language, size) { return(words) }
+wortschatz <- function(language, size) { return( words ) }
 ```
 # 2. Abstandsmaß
 
@@ -21,9 +21,12 @@ wortschatz <- function(language, size) { return(words) }
   3. Sørensen–Dice coefficient
   4. Longest common substring
   5. Jaro–Winkler distance
+  6. 2-Gramme
+  7. 3-Gramme
+  8. 4-Gramme
 
 ```r
-stringDistance <- function(stringA, stringB) { return( [0.0, 1.0] )}
+stringDistance <- function(stringA, stringB) { return( [0.0, 1.0] ) }
 ```
 
 # 3. Clustering
@@ -34,7 +37,7 @@ stringDistance <- function(stringA, stringB) { return( [0.0, 1.0] )}
   5. Divisive Analysis Clustering (Hierarchisch)
 
 ```r
-analyseCluster <- function(words, kMeans) { return cluster }
+analyseCluster <- function(words, kMeans) { return( cluster ) }
 ```
 
 # 4. Display
@@ -45,3 +48,18 @@ analyseCluster <- function(words, kMeans) { return cluster }
 displayCluster <- function(cluster) {}
 ```
 
+# I. Preprocess
+
+Die Abstandsmaße werden vor dem Clustern berechnet, um wiederholte Berechnung von Abstandsmaßen zu vermeiden.
+
+# II. Lookuptable
+
+Um einen Datensatz nicht mehrfach preprocessen zu müssen, lassen sich die Daten in abspeichern und laden.
+
+```r
+loadLookuptable <- function(file) { return( data.frame ) }
+```
+
+```r
+saveLookuptable <- function(file) { }
+```

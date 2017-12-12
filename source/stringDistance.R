@@ -6,6 +6,11 @@ dist.levenshtein <- function(stringA, stringB) {
   return(stringdist(stringA,stringB, method="lv"))
 }
 
+# 2. Damerau–Levenshtein distance
+dist.dameraulevenshtein <- function(stringA, stringB) {
+  return(stringdist(stringA,stringB, method="dl"))
+}
+
 # 3. Sørensen–Dice coefficient
 dist.sorendice <- function(stringA, stringB) {
   x <- unique( substring(stringA, seq(1,nchar(stringA),1), seq(1,nchar(stringA),1)) )
@@ -24,11 +29,6 @@ dist.longestcommonsubstring <- function(stringA, stringB) {
 # 5. Jaro–Winkler distance
 dist.jarowinkler <- function(stringA, stringB) {
   return(stringdist(stringA,stringB, method="jw"))
-}
-
-# 2. Damerau–Levenshtein distance
-dist.dameraulevenshtein <- function(stringA, stringB) {
-  return(stringdist(stringA,stringB, method="dl"))
 }
 
 # N-Gramme

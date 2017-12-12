@@ -47,7 +47,7 @@ setMethod(f="getWords",
           {
             wordList <- cluster@strings
             for (x in cluster@children) {
-              wordList = c(wordList, getWords(x) )
+              wordList = append(wordList, getWords(x) )
             }
             return(wordList)
           }
@@ -65,7 +65,7 @@ setMethod(f="addWord",
           signature="Cluster",
           definition=function(cluster, word)
           {
-            cluster@strings = c(cluster@strings, word)
+            cluster@strings = append(cluster@strings, word)
             return(cluster)
           }
 )
