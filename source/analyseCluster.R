@@ -55,23 +55,11 @@ Lloyd <- function(wordlist, k, abstand){
       
       errors <- lapply(edges, function(item) { item$error })
       closestCluster <- which.min(errors)
-      # print(edges[[closestCluster]]$cluster)
-      # closestCluster <- which.min(diffs)
       distance <- edges[[closestCluster]]$distance
-      # 
       taxonomy[taxonomy$string == string, ]$cluster <<- closestCluster
       taxonomy[taxonomy$string == string, ]$distanceToCenter <<- distance
       hierarchy[hierarchy$cluster == closestCluster, ]$count <<-  hierarchy[hierarchy$cluster == closestCluster, ]$count + 1
       hierarchy[hierarchy$cluster == closestCluster, ]$sumOfSquares <<- hierarchy[hierarchy$cluster == closestCluster, ]$sumOfSquares + (distance^2)
-
-      
-      # print(diffs)
-      # closestCluster <- which.min(diffs)
-      
-      # taxonomy[taxonomy$string == string, ]$cluster <- 
-      
-      # closest <- min(as.vector(diffs))
-      # print(closest)
     }
   )
   
