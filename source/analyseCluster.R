@@ -1,3 +1,4 @@
+rm(list = ls(.GlobalEnv), envir = .GlobalEnv)
 
 setwd("source")
 source("stringDistance.R")
@@ -13,21 +14,20 @@ Lloyd <- function(wordlist, k, abstand){
   randomCenters <- sample(wordlist, k, replace = FALSE)
   
   cluster=c(1:k)
-  partOf=0
   center=randomCenters
-  variance=0
-  count=0
-  sumOfSquares=0 
-  
+
   taxonomy <<- data.frame(string=wordlist, cluster=0, distanceToCenter=0)
   taxonomy$string <<- as.character(taxonomy$string)
   taxonomy$cluster <<- as.numeric(taxonomy$cluster)
   taxonomy$distanceToCenter <<- as.numeric(taxonomy$distanceToCenter)
   
-  hierarchy <<- data.frame(cluster=cluster, partOf=partOf, center=center, variance=variance, sumOfSquares=sumOfSquares, count=count)
+  hierarchy <<- data.frame(cluster=cluster, partOf=0, center=center, variance=0, sumOfSquares=0, count=0)
   hierarchy$center <<- as.character(hierarchy$center)
   hierarchy$cluster <<- as.numeric(hierarchy$cluster)
-
+  hierarchy$variance <<- as.numeric(hierarchy$variance)
+  hierarchy$sumOfSquares <<- as.numeric(hierarchy$sumOfSquares)
+  hierarchy$count <<- as.numeric(hierarchy$count)
+  
   # Pick a random center for each of k clusters
   apply(
     hierarchy, 
@@ -44,11 +44,26 @@ Lloyd <- function(wordlist, k, abstand){
     1,
     function(row) {
       string <- row[["string"]]
-      diffs <- sapply(hierarchy$center, function(center) { 
-        distance <- abstand(string, center)
-        return(distance)
+      edges <- apply(hierarchy, 1, function(cluster) { 
+        distance <- abstand(string, cluster[["center"]])
+        sumOfSquares <- distance^2
+        variance <- sqrt((as.numeric(cluster[["sumOfSquares"]]) + sumOfSquares)/(as.numeric(cluster[["count"]]) + 1))
+        error <- variance - as.numeric(cluster[["variance"]])
+        clust <- cluster[["cluster"]]
+        list(distance=distance, sumOfSquares=sumOfSquares, variance=variance, error=error, cluster=clust)
       })
-      taxonomy[taxonomy$string == string, ]$
+      
+      errors <- lapply(edges, function(item) { item$error })
+      closestCluster <- which.min(errors)
+      # print(edges[[closestCluster]]$cluster)
+      # closestCluster <- which.min(diffs)
+      distance <- edges[[closestCluster]]$distance
+      # 
+      taxonomy[taxonomy$string == string, ]$cluster <<- closestCluster
+      taxonomy[taxonomy$string == string, ]$distanceToCenter <<- distance
+      hierarchy[hierarchy$cluster == closestCluster, ]$count <<-  hierarchy[hierarchy$cluster == closestCluster, ]$count + 1
+      hierarchy[hierarchy$cluster == closestCluster, ]$sumOfSquares <<- hierarchy[hierarchy$cluster == closestCluster, ]$sumOfSquares + (distance^2)
+
       
       # print(diffs)
       # closestCluster <- which.min(diffs)
@@ -65,4 +80,4 @@ Lloyd <- function(wordlist, k, abstand){
 }
 
 
-result <- Lloyd(wortschatz(100), 10, dist.sorendice)
+result <- Lloyd(wortschatz(1000), 10, dist.ngramme)
