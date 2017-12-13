@@ -17,16 +17,18 @@ Lloyd <- function(wordlist, k, abstand){
   center=randomCenters
   variance=0
   count=0
+  sumOfSquares=0 
   
-  taxonomy <<- data.frame(string=wordlist, cluster=0)
+  taxonomy <<- data.frame(string=wordlist, cluster=0, distanceToCenter=0)
   taxonomy$string <<- as.character(taxonomy$string)
   taxonomy$cluster <<- as.numeric(taxonomy$cluster)
+  taxonomy$distanceToCenter <<- as.numeric(taxonomy$distanceToCenter)
   
-  hierarchy <<- data.frame(cluster=cluster, partOf=partOf, center=center, variance=variance, count=count)
+  hierarchy <<- data.frame(cluster=cluster, partOf=partOf, center=center, variance=variance, sumOfSquares=sumOfSquares, count=count)
   hierarchy$center <<- as.character(hierarchy$center)
   hierarchy$cluster <<- as.numeric(hierarchy$cluster)
-  # hierarchy$partOf <<- as.character(hierarchy$partOf)
-  
+
+  # Pick a random center for each of k clusters
   apply(
     hierarchy, 
     1, 
@@ -36,15 +38,15 @@ Lloyd <- function(wordlist, k, abstand){
     }
   )
   
+  # Add each word to the cluster for which the variance is increased the least
   apply(
     taxonomy, 
     1,
     function(row) {
       string <- row[["string"]]
-      diffs <- sapply(hierarchy, function(cluster) { 
-        variance <- cluster[["variance"]]
-        count <- cluster[["count"]]
-        # abstand(string, cluster[["center"]]) 
+      diffs <- sapply(hierarchy$center, function(center) { 
+        distance <- abstand(string, center)
+        return(distance)
       })
       taxonomy[taxonomy$string == string, ]$
       
