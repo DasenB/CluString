@@ -3,7 +3,7 @@
 ![ScreenShot](docs/FlowChart.png?raw=true)
 
 
-# 0. Datenstrukturen
+# 0. Dateastructures
 
 ## wordlist : Vector
 
@@ -96,18 +96,11 @@ cluster(distanceMatrix, clusterFunction, ?recenterFunction, ?stringToClusterDist
   4. Generative (Generate a string that represents the clusters mean)
 
 # 4. Display
-  1. Dendogram
-  2. TagSphere
-  3. TagPie
 
 ```r
 displayCluster(taxonomy, hierarchy) -> {}
 ```
 
-```r
-loadLookuptable <- function(file) { return( data.frame ) }
-```
-
-```r
-saveLookuptable <- function(file) { }
-```
+  1. Dendogram
+  2. TagSphere
+  3. TagPie
