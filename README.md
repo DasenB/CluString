@@ -1,60 +1,106 @@
-# Textmining
-Clustern von Strings auf Basis von Substrings.
+# Clustring
 
 
 # 0. Datenstrukturen
 
-```r
-words <- c("word1", "word2")
-cluster <- Cluster(strings=words, children=c(), silblings=c())
-```
-
-# 1. Wortschatz
+## wordlist : Vector
 
 ```r
-wortschatz <- function(language, size) { return( words ) }
+wordlist <- c("Haus", "Graus", "Flugzeug")
 ```
-# 2. Abstandsmaß
 
-  1. Editierdistanz nach Levenshtein
-  2. Damerau–Levenshtein distance
-  3. Sørensen–Dice coefficient
+## distanceMatrix : Matrix
+
+|       | word1 | word2 | word3 |
+|-------|-------|-------|-------|
+| word1 | 0     | x     | y     |
+| word2 | x     | 0     | z     |
+| word3 | y     | z     | 0     |
+
+
+
+## hierarchy  : Dataframe
+
+|   cluster   | partOf  | center | sumOfDistances |  count  |
+|-------------|---------|--------|----------------|---------|
+| integer ≠ 0 | integer | string | double         | integer |
+
+## taxonomy : Dataframe
+
+| string  | cluster  | distanceToCenter |
+|---------|----------|------------------|
+| string  | integer  | double           |
+
+
+# 1. Vocabulary
+
+A list of words is generated from an inputfile.
+
+```r
+vocabulary( filename, ?size ) -> wordlist
+```
+
+# 2. Preprocess
+
+To prevent redundant computation a matrix containing the stringdistances is precomputed.
+The measure of stringdistance can be chosen.
+
+```r
+preprocess(wordlist, distanceFunction) -> distanceMatrix
+```
+
+### String to String Distance Functions
+  1. Levenshtein
+  2. Damerau–Levenshtein
+  3. Sørensen–Dice
   4. Longest common substring
-  5. Jaro–Winkler distance
-  6. 2-Gramme
-  7. 3-Gramme
-  8. 4-Gramme
+  5. Jaro–Winkler
+  6. 2-Gram
+  7. 3-Gram
+  8. 4-Gram
+
+
+# 3. Cluster
+
+Similar strings are aggregated in clusters by a chosen clustering-algorithm.
 
 ```r
-stringDistance <- function(stringA, stringB) { return( [0.0, 1.0] ) }
+cluster(distanceMatrix, clusterFunction, ?recenterFunction, ?stringToClusterDistanceFunction, ?clusterToClusterDistanceFunction, ?kMeans) -> list(taxonomy=taxonomy, hierarchy=hierarchy)
 ```
 
-# 3. Clustering
-  1. Lloyd-Algorithmus (k-Means)
-  2. MacQueen’s Algorithmus (k-Means)
-  3. SingleLink (Hierarchisch)
-  4. Ward (Hierarchisch)
-  5. Divisive Analysis Clustering (Hierarchisch)
+### Cluster Functions
+  1. Lloyd-Algorithm (k-means)
+  2. MacQueen’s Algorithm (k-means)
+  3. SingleLink (hierarchical)
+  4. Ward (hierarchical)
+  5. Divisive Analysis Clustering (hierarchical)
 
-```r
-analyseCluster <- function(words, distanceFunction, kMeans) { return( cluster ) }
-```
+### Recenter Functions
+  1. Optimal
+  2. Heuristical.1 (Pick best from 30 random elements)
+  3. Heuristical.2 (Pick best from 30 strings closest to current center)
+  4. Generative (Generate a string that represents the clusters mean)
+  
+### String to Cluster Distance Functions
+  1. use center
+  2. use mean of random sample
+  3. use mean of all strings
+  4. Generative (Generate a string that represents the clusters mean)
+  
+### Cluster to Cluster Distance Functions
+  1. use center
+  2. use mean of random sample
+  3. use mean of all strings
+  4. Generative (Generate a string that represents the clusters mean)
 
 # 4. Display
   1. Dendogram
-  2. ?
+  2. TagSphere
+  3. TagPie
 
 ```r
-displayCluster <- function(cluster) {}
+displayCluster(taxonomy, hierarchy) -> {}
 ```
-
-# I. Preprocess
-
-Die Abstandsmaße werden vor dem Clustern berechnet, um wiederholte Berechnung von Abstandsmaßen zu vermeiden.
-
-# II. Lookuptable
-
-Um einen Datensatz nicht mehrfach preprocessen zu müssen, lassen sich die Daten abspeichern und laden.
 
 ```r
 loadLookuptable <- function(file) { return( data.frame ) }
