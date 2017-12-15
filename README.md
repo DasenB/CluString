@@ -1,5 +1,7 @@
 # Clustring
 
+![ScreenShot](docs/FlowChart.png?raw=true)
+
 
 # 0. Datenstrukturen
 

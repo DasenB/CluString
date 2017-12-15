@@ -1,17 +1,17 @@
 library('stringdist')
 
-uniGram <- function(a, b) {
+UniGram <- function(a, b) {
   return( stringdist(a, b, method="qgram", q=1) )
 }
 
-biGram <- function(a, b) {
+BiGram <- function(a, b) {
   return( stringdist(a, b, method="qgram", q=2) )
 }
 
-triGram <- function(a, b) {
+TriGram <- function(a, b) {
   return( stringdist(a, b, method="qgram", q=3) )
 }
 
-fourGram <- function(a, b) {
+FourGram <- function(a, b) {
   return( stringdist(a, b, method="qgram", q=4) )
 }
