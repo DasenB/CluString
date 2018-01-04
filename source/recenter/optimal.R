@@ -37,5 +37,3 @@ recenter.optimal <- function(taxonomy, hierarchy, distanceMatrix) {
     return(hierarchy)
 
 }
-
-clusterResult <- Lloyd(distanceMatrix, recenter.optimal, 20)

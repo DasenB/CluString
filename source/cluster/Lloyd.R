@@ -67,14 +67,16 @@ Lloyd <- function(distanceMatrix, recenterFunction, k){
 
           edges <- apply(hierarchy, 1, function(cluster) {
             distance <- distanceMatrix[ string, cluster[["center"]] ]
-            sumOfSquares <- distance^2
-            variance <- sqrt((as.numeric(cluster[["sumOfSquares"]]) + sumOfSquares)/(as.numeric(cluster[["count"]]) + 1))
-            error <- variance - as.numeric(cluster[["variance"]])
-            clust <- cluster[["cluster"]]
-            list(distance=distance, sumOfSquares=sumOfSquares, variance=variance, error=error, cluster=clust)
+            # sumOfSquares <- distance^2
+            # variance <- sqrt((as.numeric(cluster[["sumOfSquares"]]) + sumOfSquares)/(as.numeric(cluster[["count"]]) + 1))
+            # error <- variance - as.numeric(cluster[["variance"]])
+            # clust <- cluster[["cluster"]]
+            # list(distance=distance, sumOfSquares=sumOfSquares, variance=variance, error=error, cluster=clust)
+            list(distance=distance)
           })
 
-          errors <- lapply(edges, function(item) { item$error })
+          # errors <- lapply(edges, function(item) { item$error })
+          errors <- lapply(edges, function(item) { item$distance })
           closestCluster <- which.min(errors)
 
           if(length(closestCluster) == 0) {
@@ -91,9 +93,7 @@ Lloyd <- function(distanceMatrix, recenterFunction, k){
         }
       )
 
-      a <<- hierarchy
       hierarchy <<- recenterFunction(taxonomy, hierarchy, distanceMatrix)
-      b <<- hierarchy
 
       print(paste("Finished iteration", iteration))
       # end of iteration
@@ -102,5 +102,5 @@ Lloyd <- function(distanceMatrix, recenterFunction, k){
   return( list(hierarchy=hierarchy, taxonomy=taxonomy) )
 }
 
-clusterResult <- Lloyd(distanceMatrix, recenter.optimal, 20)
+clusterResult <- Lloyd(distanceMatrix, recenter.optimal, 100)
 
