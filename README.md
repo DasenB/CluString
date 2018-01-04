@@ -3,7 +3,7 @@
 ![ScreenShot](docs/FlowChart.png?raw=true)
 
 
-# 0. Dateastructures
+# 0. Datastructures
 
 ## wordlist : Vector
 

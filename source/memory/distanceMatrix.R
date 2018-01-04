@@ -1,8 +1,10 @@
 
 loadDistanceMatrix <- function(filename) {
   filePath <- paste("data/distanceMatrix/", filename, sep="")
-  wordlist <- read.csv2(filePath)
-  return(wordlist)
+  distanceMatrix <- read.csv2(filePath, header=TRUE)
+  row.names(distanceMatrix) <- distanceMatrix[[1]]
+  distanceMatrix[[1]] <- NULL
+  return(distanceMatrix)
 }
 
 saveDistanceMatrix <- function(filename, distanceMatrix) {

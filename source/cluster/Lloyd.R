@@ -3,7 +3,7 @@ library(parallel)
 Lloyd <- function(distanceMatrix, recenterFunction, k){
 
   # Check if k parameter was supplied
-  if(is.null(k)) {
+  if(missing(k)) {
     k <- 2
   }
 
@@ -47,36 +47,60 @@ Lloyd <- function(distanceMatrix, recenterFunction, k){
   # Update taxonomy table to contain the clusternumber for the randomly selected center-words
   apply( hierarchy, 1, function(row) { taxonomy[ taxonomy$string == row[["center"]], ]$cluster <<- as.integer(row[["cluster"]]) } )
 
-  # Add each word to the cluster for which the variance is increased the least
-  apply(
-    taxonomy,
-    1,
-    function(row) {
-      string <- row[["string"]]
-      edges <- apply(hierarchy, 1, function(cluster) {
-        distance <- distanceMatrix[ string, cluster[["center"]] ]
-        sumOfSquares <- distance^2
-        variance <- sqrt((as.numeric(cluster[["sumOfSquares"]]) + sumOfSquares)/(as.numeric(cluster[["count"]]) + 1))
-        error <- variance - as.numeric(cluster[["variance"]])
-        clust <- cluster[["cluster"]]
-        list(distance=distance, sumOfSquares=sumOfSquares, variance=variance, error=error, cluster=clust)
-      })
+  for( iteration in 0:3) {
 
-      errors <- lapply(edges, function(item) { item$error })
-      closestCluster <- which.min(errors)
-      distance <- edges[[closestCluster]]$distance
-      taxonomy[taxonomy$string == string, ]$cluster <<- closestCluster
-      taxonomy[taxonomy$string == string, ]$distanceToCenter <<- distance
-      hierarchy[hierarchy$cluster == closestCluster, ]$count <<-  hierarchy[hierarchy$cluster == closestCluster, ]$count + 1
-      hierarchy[hierarchy$cluster == closestCluster, ]$sumOfSquares <<- hierarchy[hierarchy$cluster == closestCluster, ]$sumOfSquares + (distance^2)
-    }
-  )
+      # Add each word (exept the centers) to the cluster for which the variance is increased the least
+      apply(
+        taxonomy,
+        1,
+        function(row) {
+          string <- row[["string"]]
 
+          if(string %in% hierarchy$center) {
+            return
+          }
 
-  hierarchy <- recenterFunction(taxonomy, hierarchy, distanceMatrix)
+          currentOfCluster <- as.numeric(row[["cluster"]])
+          if(currentOfCluster != 0) {
+            hierarchy[hierarchy$cluster == currentOfCluster, ]$count <<- hierarchy[hierarchy$cluster == currentOfCluster, ]$count - 1
+          }
+
+          edges <- apply(hierarchy, 1, function(cluster) {
+            distance <- distanceMatrix[ string, cluster[["center"]] ]
+            sumOfSquares <- distance^2
+            variance <- sqrt((as.numeric(cluster[["sumOfSquares"]]) + sumOfSquares)/(as.numeric(cluster[["count"]]) + 1))
+            error <- variance - as.numeric(cluster[["variance"]])
+            clust <- cluster[["cluster"]]
+            list(distance=distance, sumOfSquares=sumOfSquares, variance=variance, error=error, cluster=clust)
+          })
+
+          errors <- lapply(edges, function(item) { item$error })
+          closestCluster <- which.min(errors)
+
+          if(length(closestCluster) == 0) {
+            print("ERROR: Can't Cluster, because for some reason the cluster with lowest can't be determined.")
+            print(paste("String: \"", string, "\" can't be compared with cluster centers"))
+            exit(1)
+          }
+
+          distance <- edges[[closestCluster]]$distance
+          taxonomy[taxonomy$string == string, ]$cluster <<- closestCluster
+          taxonomy[taxonomy$string == string, ]$distanceToCenter <<- distance
+          hierarchy[hierarchy$cluster == closestCluster, ]$count <<-  hierarchy[hierarchy$cluster == closestCluster, ]$count + 1
+          hierarchy[hierarchy$cluster == closestCluster, ]$sumOfSquares <<- hierarchy[hierarchy$cluster == closestCluster, ]$sumOfSquares + (distance^2)
+        }
+      )
+
+      a <<- hierarchy
+      hierarchy <<- recenterFunction(taxonomy, hierarchy, distanceMatrix)
+      b <<- hierarchy
+
+      print(paste("Finished iteration", iteration))
+      # end of iteration
+  }
 
   return( list(hierarchy=hierarchy, taxonomy=taxonomy) )
 }
 
-clusterResult <- Lloyd(distanceMatrix, 20)
+clusterResult <- Lloyd(distanceMatrix, recenter.optimal, 20)
 

@@ -2,7 +2,7 @@
 loadWordlist <- function(filename) {
   filePath <- paste("data/wordlist/", filename, sep="")
   wordlist <- read.csv2(filePath)
-  return(wordlist)
+  return(as.character(wordlist$x))
 }
 
 saveWordlist <- function(filename, wordlist) {
