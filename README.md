@@ -1,4 +1,4 @@
-# Clustring
+# CluString
 
 ![ScreenShot](docs/FlowChart.png?raw=true)
 
