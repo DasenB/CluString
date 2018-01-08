@@ -1,4 +1,4 @@
-# rm(list = ls(.GlobalEnv), envir = .GlobalEnv)
+rm(list = ls(.GlobalEnv), envir = .GlobalEnv)
 
 # String To String Distances
 source("source/distance/StringToString/dameraulevenshtein.R")
@@ -9,10 +9,14 @@ source("source/distance/StringToString/ngram.R")
 source("source/distance/StringToString/sorendice.R")
 
 # String To Cluster Distances
+source("source/distance/StringToCluster/Center.R")
 
 # Cluster To Cluster Distances
 
 # Recenter Functions
+source("source/recenter/optimal.R")
+source("source/recenter/heuristical1.R")
+source("source/recenter/heuristical2.R")
 
 # Pipe
 source("source/pipe/vocabulary.R")

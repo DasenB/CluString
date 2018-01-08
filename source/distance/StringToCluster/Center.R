@@ -1,5 +1,5 @@
 
-StC.Representative <- function(str, cluster, clusterHierarchy, clusterTaxonomy, distanceMatrix) {
+StoC.Center <- function(str, cluster, clusterHierarchy, clusterTaxonomy, distanceMatrix) {
 
   center <- clusterHierarchy[clusterHierarchy$cluster == cluster, ]$center
   distance <- distanceMatrix[ str, center ]

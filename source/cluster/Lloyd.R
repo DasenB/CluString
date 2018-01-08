@@ -47,7 +47,7 @@ Lloyd <- function(distanceMatrix, recenterFunction, k){
   # Update taxonomy table to contain the clusternumber for the randomly selected center-words
   apply( hierarchy, 1, function(row) { taxonomy[ taxonomy$string == row[["center"]], ]$cluster <<- as.integer(row[["cluster"]]) } )
 
-  for( iteration in 0:3) {
+  for( iteration in 0:10) {
 
       # Add each word (exept the centers) to the cluster for which the variance is increased the least
       apply(
@@ -63,6 +63,7 @@ Lloyd <- function(distanceMatrix, recenterFunction, k){
           currentOfCluster <- as.numeric(row[["cluster"]])
           if(currentOfCluster != 0) {
             hierarchy[hierarchy$cluster == currentOfCluster, ]$count <<- hierarchy[hierarchy$cluster == currentOfCluster, ]$count - 1
+            hierarchy[hierarchy$cluster == currentOfCluster, ]$sumOfSquares <<- hierarchy[hierarchy$cluster == currentOfCluster, ]$sumOfSquares - as.numeric(row[["distanceToCenter"]])^2
           }
 
           edges <- apply(hierarchy, 1, function(cluster) {
@@ -102,5 +103,5 @@ Lloyd <- function(distanceMatrix, recenterFunction, k){
   return( list(hierarchy=hierarchy, taxonomy=taxonomy) )
 }
 
-clusterResult <- Lloyd(distanceMatrix, recenter.optimal, 100)
+# clusterResult <- Lloyd(distanceMatrix, recenter.optimal, 200)
 
