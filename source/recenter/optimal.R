@@ -1,6 +1,6 @@
 library(parallel)
 
-recenter.optimal <- function(taxonomy, hierarchy, distanceMatrix) {
+recenter.Optimal <- function(taxonomy, hierarchy, distanceMatrix) {
 
     # Prepare parallelisation
     dedicatedCores <- detectCores() - 1
@@ -9,13 +9,13 @@ recenter.optimal <- function(taxonomy, hierarchy, distanceMatrix) {
     # Parallel recenter all clusters
     for(n in hierarchy$cluster) {
 
-      cluster <<- taxonomy[taxonomy$cluster == as.character(n),]$string
+      cluster <- taxonomy[taxonomy$cluster == as.character(n),]$string
 
       if(length(cluster) == 0) {
         next
       }
 
-      clusterExport(parallelWorker, varlist = c("distanceMatrix", "cluster"), envir = .GlobalEnv)
+      clusterExport(parallelWorker, varlist = c("distanceMatrix", "cluster"), envir = environment())
 
       distanceSums <- parLapply(
         parallelWorker,

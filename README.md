@@ -79,21 +79,18 @@ cluster(distanceMatrix, clusterFunction, ?recenterFunction, ?stringToClusterDist
 
 ### Recenter Functions
   1. Optimal
-  2. Heuristical.1 (Pick best from 30 random elements)
-  3. Heuristical.2 (Pick best from 30 strings closest to current center)
-  4. Generative (Generate a string that represents the clusters mean)
-  
+  2. Random: (Pick best from 30 random elements)
+  3. Heuristical: (Pick best from 30 strings closest to current center)
+
 ### String to Cluster Distance Functions
-  1. use center
-  2. use mean of random sample
-  3. use mean of all strings
-  4. Generative (Generate a string that represents the clusters mean)
-  
+  1. Center: use center
+  2. Sample: use mean of random sample
+  3. Full: use mean of all strings
+
 ### Cluster to Cluster Distance Functions
-  1. use center
-  2. use mean of random sample
-  3. use mean of all strings
-  4. Generative (Generate a string that represents the clusters mean)
+  1. Center: use center
+  2. Sample: use mean of random sample
+  3. Full: use mean of all strings
 
 # 4. Display
 
