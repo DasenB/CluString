@@ -72,15 +72,16 @@ cluster(distanceMatrix, clusterFunction, ?recenterFunction, ?stringToClusterDist
 
 ### Cluster Functions
   1. Lloyd-Algorithm (k-means)
-  2. MacQueen’s Algorithm (k-means)
-  3. SingleLink (hierarchical)
-  4. Ward (hierarchical)
-  5. Divisive Analysis Clustering (hierarchical)
+  2. Stream
+  3. MacQueen’s Algorithm (k-means)
+  4. SingleLink (hierarchical)
+  5. Ward (hierarchical)
+  6. Divisive Analysis Clustering (hierarchical)
 
 ### Recenter Functions
-  1. Optimal
-  2. Random: (Pick best from 30 random elements)
-  3. Heuristical: (Pick best from 30 strings closest to current center)
+  1. Optimal: Pick best from all elements
+  2. Random: Pick best from 30 random elements
+  3. Heuristical: Pick best from 30 strings closest to current center
 
 ### String to Cluster Distance Functions
   1. Center: use center

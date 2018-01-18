@@ -15,8 +15,8 @@ source("source/distance/StringToCluster/Center.R")
 
 # Recenter Functions
 source("source/recenter/optimal.R")
-source("source/recenter/heuristical1.R")
-source("source/recenter/heuristical2.R")
+source("source/recenter/random.R")
+source("source/recenter/heuristical.R")
 
 # Pipe
 source("source/pipe/vocabulary.R")
@@ -29,3 +29,4 @@ source("source/memory/cluster.R")
 
 # Cluster
 source("source/cluster/Lloyd.R")
+source("source/cluster/Stream.R")

@@ -29,4 +29,4 @@ StoC.Sample <- function(str, cluster, clusterHierarchy, clusterTaxonomy, distanc
   median(distances)
 }
 
-StoC.Sample("Bodenwischer", 69, clusterResult[["hierarchy"]], clusterResult[["taxonomy"]], distanceMatrix)
+# StoC.Sample("Bodenwischer", 69, clusterResult[["hierarchy"]], clusterResult[["taxonomy"]], distanceMatrix)

@@ -22,4 +22,4 @@ StoC.Full <- function(str, cluster, clusterHierarchy, clusterTaxonomy, distanceM
   median(distances)
 }
 
-StoC.Full("Bodenwischer", 69, clusterResult[["hierarchy"]], clusterResult[["taxonomy"]], distanceMatrix)
+# StoC.Full("Bodenwischer", 69, clusterResult[["hierarchy"]], clusterResult[["taxonomy"]], distanceMatrix)
