@@ -1,56 +1,54 @@
-# library(wordcloud2)
-# library("htmlwidgets")
-# library(webshot)
+library(wordcloud2)
+library("htmlwidgets")
+library(webshot)
 
 # webshot::install_phantomjs()
 
 display.wordcloud <- function(taxonomy, hierarchy, outDir){
 
   newPath <- paste("data/results/wordcloud/", outDir, sep = "")
-  dir.create(newPath, showWarnings = TRUE, recursive = FALSE, mode = "0777")
+  if(!dir.exists(newPath)){
+    dir.create(newPath, showWarnings = TRUE, recursive = FALSE, mode = "0777")
+  }
 
-    for(i in 1:max(as.numeric(hierarchy$cluster))) {
-      print(i)
+  for(i in 1:max(as.numeric(hierarchy$cluster))) {
+  # for(i in c(3, 5, 11, 13, 14, 15, 16, 17)) {
 
-      cluster <- taxonomy[taxonomy$cluster == i, ]
-      center <- cluster[cluster$distanceToCenter == 0, ]
+    cluster <- taxonomy[taxonomy$cluster == i, ]
+    if(length(cluster$string) < 8) {
+      next()
+    }
+    center <- cluster[cluster$distanceToCenter == 0, ]
 
-      if(length(center$string) != 1) {
-        print(paste("Ups, Error while iterating cluster ", i, "of length ", length(cluster$string)))
-        return()
+    print( paste("Cluster Nr. ", i,": Length=", length(cluster$string), sep=""))
+
+    if(length(center$string) != 1) {
+      print(paste("Ups, Error while iterating cluster ", i, "of length ", length(cluster$string)))
+      next()
+    }
+
+    center <- as.character(center$string[[1]])
+    bigestDistance <- cluster[["distanceToCenter"]][[which.max(cluster[["distanceToCenter"]])]]
+
+    importance <- lapply(
+      cluster[["distanceToCenter"]],
+      function(value) {
+        result <- (1 + bigestDistance - value)*3
+        print(result)
+        return(result)
       }
+    )
 
-      center <- as.character(center$string[[1]])
+    clusterCloudData <- data.frame( word=as.character(cluster[["string"]]), freq=importance)
+    # View( data.frame(importance=importance, distanceToCenter=cluster[["distanceToCenter"]]) )
 
-      cluster <- data.frame(string=as.character(cluster[["string"]]), cluster=as.numeric(cluster[["distanceToCenter"]]))
-      cloud <- wordcloud2(cluster, size=0.5)
+    cloud <- wordcloud2(clusterCloudData, size=1, gridSize=1 )
 
-      newFile <- paste(newPath, "/", center, ".png", sep="")
-      saveWidget(cloud, "tmp.html", selfcontained = F)
-      webshot("tmp.html", newFile, delay=5, vwidth=480, vheight=480)
+    newFile <- paste(newPath, "/", center, ".png", sep="")
+    saveWidget(cloud, "tmp.html", selfcontained = F)
+    webshot("tmp.html", newFile, delay=5, vwidth=480, vheight=480)
 
   }
 
 
 }
-#
-#   for(row in taxonomy[taxonomy$distanceToCenter == 0 , ]) {
-#     # cluster <- taxonomy[taxonomy$cluster == row$cluster, ]
-#     # cluster <- data.frame(string=as.character(cluster[["string"]]), cluster=as.numeric(cluster[["distanceToCenter"]]))
-#     # cloud <- wordcloud2(cluster, size=0.5)
-#     View(row)
-#
-#   }
-
-  # for (clusterID in hierarchy$cluster) {
-  #     cluster <- taxonomy[taxonomy$cluster == clusterID, ]
-  #     cluster <- data.frame(string=as.character(cluster[["string"]]), cluster=as.numeric(cluster[["distanceToCenter"]]))
-  #     cloud <- wordcloud2(cluster, size=0.5)
-  #     print(cluster[cluster$distanceToCenter == 0,])
-      # newFile <- paste(cluster[cluster$distanceToCenter == 0,]$string, ".pdf", sep = "")
-      # print(newFile)
-#       saveWidget(cloud,"tmp.html",selfcontained = F)
-#       webshot("tmp.html",newFile, delay =5, vwidth = 480, vheight=480)
-
-
-
