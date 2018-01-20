@@ -26,5 +26,12 @@ benchmark <- function() {
   system.time(pipeDisplay())
 }
 
+pipeMapRun <- function() {
+  worldmap <<- read.csv("data/wordlist/worldmap.csv")
+  wordlist <<- worldmap$city
+  distanceMatrix <<- preprocess(wordlist, StoS.TriGram)
+  clusterResult <<- Lloyd(distanceMatrix, recenter.Heuristical, 200)
+}
 
-pipeDisplay()
+
+pipeMapRun()
