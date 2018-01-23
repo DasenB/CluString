@@ -1,6 +1,6 @@
 library(parallel)
 
-Lloyd <- function(distanceMatrix, recenterFunction, k){
+Cluster.Lloyd <- function(distanceMatrix, recenterFunction, k){
 
   # Check if k parameter was supplied
   if(missing(k)) {

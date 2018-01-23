@@ -2,36 +2,37 @@
 source("source/clustring.R")
 
 
-pipeRun <- function() {
+test.pipeRun <- function() {
   wordlist <<- vocabulary("deu-eu_web_2015_10K-words.txt", 1000)
   distanceMatrix <<- preprocess(wordlist, StoS.TriGram)
   clusterResult <<- Lloyd(distanceMatrix, recenter.Heuristical, 200)
 }
 
-pipeLoad <- function() {
+test.pipeLoad <- function() {
   clusterResult <<- memory.loadCluster("test")
   # distanceMatrix <<- preprocess(clusterResult[["taxonomy"]]$string, StoS.TriGram)
 }
 
 
-pipeDisplay <- function() {
+test.pipeDisplay <- function() {
   pipeLoad()
   display.wordcloud(clusterResult[["taxonomy"]], clusterResult[["hierarchy"]], "test")
 }
 
 
-benchmark <- function() {
+test.benchmark <- function() {
   system.time(pipeRun())
   system.time(pipeLoad())
   system.time(pipeDisplay())
 }
 
-pipeMapRun <- function() {
-  worldmap <<- read.csv("data/wordlist/worldmap.csv")
+test.pipeMapRun <- function() {
+  worldmap <<- read.csv("data/location/worldmap.csv")
   wordlist <<- worldmap$city
+  wordlist <<- sample(wordlist, 2000, replace = FALSE)
   distanceMatrix <<- preprocess(wordlist, StoS.TriGram)
   clusterResult <<- Lloyd(distanceMatrix, recenter.Heuristical, 200)
 }
 
 
-pipeMapRun()
+# pipeMapRun()

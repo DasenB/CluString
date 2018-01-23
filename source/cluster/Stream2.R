@@ -1,5 +1,5 @@
 
-Stream <- function(distanceMatrix, recenterFunction, ...) {
+Cluster.Stream <- function(distanceMatrix, recenterFunction, ...) {
 
   # Read optional parameters
   arguments <- list(...)

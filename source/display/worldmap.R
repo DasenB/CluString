@@ -3,7 +3,7 @@ library(rworldmap)
 newmap <- getMap(resolution = "low")
 plot(newmap, xlim = c(-20, 59), ylim = c(35, 71), asp = 1)
 
-worldmap <<- read.csv("data/wordlist/worldmap.csv")
+worldmap <<- read.csv("data/location/worldmap.csv")
 worldmap <<- data.frame(city=worldmap$city, lat=worldmap$lat, lng=worldmap$lng)
 
 points(round(worldmap$lng,4), round(worldmap$lat,4), col = c(1, 2, 3, 4), cex = .6)

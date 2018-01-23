@@ -6,7 +6,7 @@ library(webshot)
 
 display.wordcloud <- function(taxonomy, hierarchy, outDir){
 
-  newPath <- paste("data/results/wordcloud/", outDir, sep = "")
+  newPath <- paste("data/location/wordcloud/", outDir, sep = "")
   if(!dir.exists(newPath)){
     dir.create(newPath, showWarnings = TRUE, recursive = FALSE, mode = "0777")
   }
