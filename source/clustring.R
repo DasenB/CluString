@@ -29,7 +29,7 @@ source("source/memory/cluster.R")
 
 # Cluster
 source("source/cluster/Lloyd.R")
-source("source/cluster/Stream.R")
+# source("source/cluster/Stream.R")
 
 # Display
 source("source/display/wordcloud.R")

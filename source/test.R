@@ -31,7 +31,7 @@ test.pipeMapRun <- function() {
   wordlist <<- worldmap$city
   wordlist <<- sample(wordlist, 2000, replace = FALSE)
   distanceMatrix <<- preprocess(wordlist, StoS.TriGram)
-  clusterResult <<- Lloyd(distanceMatrix, recenter.Heuristical, 200)
+  clusterResult <<- Cluster.Lloyd(distanceMatrix, recenter.Heuristical, 200)
 }
 
 
