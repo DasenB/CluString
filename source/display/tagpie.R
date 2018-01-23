@@ -10,10 +10,20 @@ display.tagpie <- function(taxonomy, hierarchy, outDir){
 
   for(i in 1:max(as.numeric(hierarchy$cluster))) {
     TagPieDataString <- paste(TagPieDataString, "{")
+    TagPieDataString <- paste(TagPieDataString, "'major': { 'key': '", as.character(hierarchy[hierarchy$cluster == i, ]$center), "', 'value': 100 },", sep="")
 
+    TagPieDataString <- paste(TagPieDataString, "'data': [")
 
+    # 'data': [ {'key': 'tag1', 'value': 10 }, {'key': 'tag2', 'value': 10 }]
     # print(as.character(hierarchy[hierarchy$cluster == i, ]$center))
     # taxonomy[taxonomy$cluster == i, ]
+
+    for(row in 1:length(taxonomy[taxonomy$cluster == 64, ])) {
+      TagPieDataString <- paste(TagPieDataString, "{")
+    }
+
+    TagPieDataString <- paste(TagPieDataString, "']")
+
 
     TagPieDataString <- paste(TagPieDataString, "}")
     if(i != max(as.numeric(hierarchy$cluster))) {
