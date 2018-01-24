@@ -1,15 +1,11 @@
-display.tagpie <- function(taxonomy, hierarchy, outDir){
+display.tagpie <- function(taxonomy, hierarchy, selection){
 
-  newPath <- paste("data/display/tagpie/", outDir, sep = "")
-
-  if(!dir.exists(newPath)){
-    dir.create(newPath, showWarnings = TRUE, recursive = FALSE, mode = "0777")
-  }
 
   TagPieDataString <- "var data = {\n"
 
+  for(i in selection) {
   # for(i in 1:max(as.numeric(hierarchy$cluster))) {
-  for(i in 1:50) {
+  # for(i in 1:50) {                                  # WORKING
   # for(i in 64:64) {
 
     if(length(taxonomy[taxonomy$cluster == i, ]$string) == 0) {
@@ -39,18 +35,18 @@ display.tagpie <- function(taxonomy, hierarchy, outDir){
   }
 
   TagPieDataString <- paste0(TagPieDataString, "};")
+  # cat(TagPieDataString)
+
+
+
+  # tempDir <- tempfile()
+  # dir.create(tempDir)
+  sink('source/display/TagPie/test.js', append=FALSE)
   cat(TagPieDataString)
-
-
-
-  tempDir <- tempfile()
-  dir.create(tempDir)
-  htmlFile <- file.path(tempDir, "index.html")
+  sink()
+  # htmlFile <- file.path(tempDir, "index.html")
 
   # (code to write some content to the file)
   viewer <- getOption("viewer")
-  viewer(htmlFile)
+  viewer("source/display/TagPie/TagPie.html")
 }
-
-
-display.tagpie( clusterResult[["taxonomy"]], clusterResult[["hierarchy"]], "test2")

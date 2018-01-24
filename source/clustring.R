@@ -33,3 +33,5 @@ source("source/cluster/Lloyd.R")
 
 # Display
 source("source/display/wordcloud.R")
+source("source/display/tagpie.R")
+source("source/display/mapDE.R")

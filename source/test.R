@@ -26,13 +26,17 @@ test.benchmark <- function() {
   system.time(pipeDisplay())
 }
 
-test.pipeMapRun <- function() {
-  worldmap <<- read.csv("data/location/worldmap.csv")
-  wordlist <<- worldmap$city
-  wordlist <<- sample(wordlist, 2000, replace = FALSE)
-  distanceMatrix <<- preprocess(wordlist, StoS.TriGram)
-  clusterResult <<- Cluster.Lloyd(distanceMatrix, recenter.Heuristical, 200)
+test.displayMapDE <- function() {
+  clusterResult <- memory.loadCluster("orte_de_2000")
+  display.mapDE(clusterResult[["taxonomy"]], clusterResult[["hierarchy"]], c(9, 12, 17, 19, 23, 25, 28, 47))
 }
 
+test.displayTagPie <- function() {
+  clusterResult <- memory.loadCluster("orte_de_2000")
+  display.tagpie( clusterResult[["taxonomy"]], clusterResult[["hierarchy"]], clusterResult[["hierarchy"]]$cluster[1:50])
+}
 
-# pipeMapRun()
+test.displayTagPie()
+
+test.displayMapDE()
+
