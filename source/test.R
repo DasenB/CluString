@@ -28,7 +28,8 @@ test.benchmark <- function() {
 
 test.displayMapDE <- function() {
   clusterResult <- memory.loadCluster("orte_de_2000")
-  display.mapDE(clusterResult[["taxonomy"]], clusterResult[["hierarchy"]], c(9, 12, 17, 19, 23, 25, 28, 47))
+  # display.mapDE(clusterResult[["taxonomy"]], clusterResult[["hierarchy"]], c(9, 12, 17, 19, 23, 25, 28, 47))
+  display.mapDE(clusterResult[["taxonomy"]], clusterResult[["hierarchy"]], c(19, 28, 9))
 }
 
 test.displayTagPie <- function() {

@@ -15,7 +15,7 @@ display.mapDE <- function(taxonomy, hierarchy, selection) {
 
     pointsDE <- data.frame(lat=germany$lat, lon=germany$lon, cluster=as.character(germany$cluster))
 
-    pointsDE <- pointsDE[pointsDE$cluster %in% c("9", "12", "17", "19", "23", "25", "28", "47"), ]
+    pointsDE <- pointsDE[pointsDE$cluster %in% selection, ]
 
     Germany.map = get_map(location = "Germany", zoom = 6, color="bw")
     map <- ggmap(Germany.map)
