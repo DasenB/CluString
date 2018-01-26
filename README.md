@@ -1,3 +1,35 @@
+### Outline
+1. Introduction
+2. Vocabulary and Dataset
+3. Methods and Procedure
+	* 3.1. Preprocess
+		- Selection and Extraction of Dataset
+		- String to String Distance
+	* 3.2 Clustering
+		- Recenter Function
+		- String to Cluster Distance
+4. Display
+	* TagPie
+	* Map
+
+
+#1 Introduction
+As part of the Text Mining module at the University of Leipzig we had the task of clustering and classifying words based on substrings. Based on Wikipedia's german vocabulary, we tried to cluster over 2000 words using the Levenshtein-distance and the k-means-algorithm. 
+
+Unfortunately, the selected dataset of german vocabulary was dirty and due to computational effort, we had to limit ourselves to a smaller amount.
+
+Thatswhy, we chose a new set of German city names instead in order to present our results more impressively. We used an algorithm based on n-grams to compute string distances and then to cluster them using the Lyoud-k-means algorithm.
+
+#2 Vocabulary and Dataset
+
+|1. vocabulary| 2. cities|
+|-------------|----------|
+|<img src="docs/vocabulary_screenshot.png" alt="Drawing" style="width: 200px;"/>|<img src="docs/cities_screenshot.png" alt="Drawing" style="width: 300px;"/>
+
+The tables shown here are the starting point for calculating string distances. The first table shows the german vocabulary with some unclean entries like numeric values in line 19 or 25.  
+
+
+
 # CluString
 
 ![ScreenShot](docs/FlowChart.png?raw=true)
@@ -99,6 +131,5 @@ cluster(distanceMatrix, clusterFunction, ?recenterFunction, ?stringToClusterDist
 displayCluster(taxonomy, hierarchy) -> {}
 ```
 
-  1. Dendogram
-  2. TagSphere
-  3. TagPie
+  1. TagPie
+  2. Map 
