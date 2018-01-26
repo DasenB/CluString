@@ -21,6 +21,7 @@ source("source/recenter/heuristical.R")
 # Pipe
 source("source/pipe/vocabulary.R")
 source("source/pipe/preprocess.R")
+source("source/pipe/locations.R")
 
 # Storage
 source("source/memory/wordlist.R")
